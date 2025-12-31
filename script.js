@@ -262,8 +262,6 @@ submitBtn.addEventListener('click',()=>{
   deselectedAnswer()
   loadQuiz()
   // console.log(score)
-  console.log(number)
-  console.log(QuizData.length);
   }
   else{
     alert(`Your Score is: ${score}`)
