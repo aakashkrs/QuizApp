@@ -203,24 +203,70 @@ const QuizData = [
 
 const answerEl=document.querySelectorAll('.answer');
 const [questionEl, option_1, option_2, option_3, option_4]=document.querySelectorAll(
-    "#question, .option_1, option_2, option_3, option_4"
+    "#question, .option_1, .option_2, .option_3, .option_4"
 );
 const submitBtn=document.getElementById('submit')
 
-const currentQuiz=0;
-const score=0;
+let currentQuiz=Math.floor(Math.random() * QuizData.length);;
+let number=0;
+let score=0;
 
 //Load quiz function
 
 const loadQuiz=()=>{
     //isse hume first quiz ka data mill jayeg
     const {question, options}=QuizData[currentQuiz];
-
-    questionEl.innerHTML=question;
+    questionEl.innerHTML=`Q.${number+1 }${question}`;
 
     options.forEach((curr, index)=>{
         window[`option_${index+1}`].innerHTML=curr;
     })
 }
 
+
 loadQuiz();
+
+//ye hume index dega jo index user option submit kr raha hai.
+const getSelectOption=()=>{
+  // let ans_index;
+  // answerEl.forEach((curr,index)=>{
+  //   if(curr.checked){
+  //     ans_index=index;
+  //   }
+  // })
+  // return ans_index;
+  let array=[...answerEl];
+   return array.findIndex(curr=>curr.checked);
+}
+
+const deselectedAnswer=()=>{
+  answerEl.forEach((curr)=>{
+    curr.checked=false;
+  })
+}
+
+submitBtn.addEventListener('click',()=>{
+  const selectOptionIndex=getSelectOption();
+  // console.log(selectOptionIndex);
+  
+  if (selectOptionIndex === -1) return;
+
+  if(selectOptionIndex===QuizData[currentQuiz].correctAns){
+    score++;
+  }
+  
+  number++;
+
+  if(number<5){
+    currentQuiz = Math.floor(Math.random() * QuizData.length);
+  deselectedAnswer()
+  loadQuiz()
+  // console.log(score)
+  console.log(number)
+  console.log(QuizData.length);
+  }
+  else{
+    alert(`Your Score is: ${score}`)
+  }
+
+})
