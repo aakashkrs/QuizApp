@@ -216,7 +216,7 @@ let score=0;
 const loadQuiz=()=>{
     //isse hume first quiz ka data mill jayeg
     const {question, options}=QuizData[currentQuiz];
-    questionEl.innerHTML=`Q.${number+1 }${question}`;
+    questionEl.innerHTML=`Q.${number+1}: ${question}`;
 
     options.forEach((curr, index)=>{
         window[`option_${index+1}`].innerHTML=curr;
